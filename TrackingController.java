@@ -32,9 +32,11 @@ public class TrackingController {
         return modelMapper.map(service.addCustomer(customerEntity), CustomerDTO.class);
     }
 
-    @PostMapping("/api/customers{id}/shipments/")
-    ShipmentDTO addShipment(@RequestBody ShipmentDTO shipment) {
-        return shipment;
+   @PostMapping("/api/customers/{id}/shipments")
+    ShipmentDTO addShipment(@RequestBody ShipmentDTO shipment, @PathVariable long id ) {
+    Shipment shipmentEntity =
+            new Shipment(shipment.getShipmentId(),shipment.getDescription(),id);
+     return modelMapper.map(service.addShipment(shipmentEntity),ShipmentDTO.class);
     }
 
     @PostMapping("/api/shipments{id}/trackings")
